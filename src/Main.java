@@ -71,8 +71,9 @@ public class Main {
         return (int) ((x + 2) * imageSize / 4);
     }
 
-    void drawPath(Complex x_start, int iterationsAmount) {
+    void drawPath(Complex x_start, int iterationsAmount, Color color) {
         List<Complex> iterations = calcNIterations(x_start, iterationsAmount, iterationsAmount);
+        graphics.setColor(color);
 
         for (int i = 0; i < iterations.size() - 1; i++) {
             Complex begin = iterations.get(i);
@@ -83,6 +84,29 @@ public class Main {
                     fromDoubleToCoordinate(end.re()),
                     imageSize - 1 - fromDoubleToCoordinate(end.im()));
         }
+    }
+
+    void drawRoots(Color color, int radius) {
+        graphics.setColor(color);
+
+        graphics.fillOval(
+                fromDoubleToCoordinate(root1.re()) - radius / 2,
+                imageSize - 1 - fromDoubleToCoordinate(root1.im()) - radius / 2,
+                radius,
+                radius
+        );
+        graphics.fillOval(
+                fromDoubleToCoordinate(root2.re()) - radius / 2,
+                imageSize - 1 - fromDoubleToCoordinate(root2.im()) - radius / 2,
+                radius,
+                radius
+        );
+        graphics.fillOval(
+                fromDoubleToCoordinate(root3.re()) - radius / 2,
+                imageSize - 1 - fromDoubleToCoordinate(root3.im()) - radius / 2,
+                radius,
+                radius
+        );
     }
 
     public static void main(String[] args) throws IOException {
@@ -111,10 +135,12 @@ public class Main {
             }
         }
 
-        kek.drawPath(new Complex(1, 1), 100);
-        kek.drawPath(new Complex(0.1, 0.2), 100);
-//        kek.drawPath(new Complex(-1, -0.5), 100);
-//        kek.drawPath(new Complex(-0.1, -0.1), 100);
+        kek.drawRoots(Color.orange, 8);
+
+        kek.drawPath(new Complex(1, 1), 100, Color.BLACK);
+        kek.drawPath(new Complex(0.1, 0.2), 100, Color.DARK_GRAY);
+        kek.drawPath(new Complex(-1, -1), 100, Color.WHITE);
+        kek.drawPath(new Complex(0.4, 0.6), 100, Color.YELLOW);
 
         File outputfile = new File("image.png");
         ImageIO.write(kek.image, "png", outputfile);
