@@ -110,39 +110,39 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main kek = new Main(1000);
+        Main solver = new Main(1000);
 
-        for (int reIter = 0; reIter < kek.imageSize; reIter++) {
+        for (int reIter = 0; reIter < solver.imageSize; reIter++) {
             System.out.println(reIter);
-            for (int imIter = 0; imIter < kek.imageSize; imIter++) {
-                double re = 4d / kek.imageSize * reIter - 2;
-                double im = 4d / kek.imageSize * imIter - 2;
+            for (int imIter = 0; imIter < solver.imageSize; imIter++) {
+                double re = 4d / solver.imageSize * reIter - 2;
+                double im = 4d / solver.imageSize * imIter - 2;
 
-                Complex limit = kek.findConvergence(kek.calcNIterations(new Complex(re, im), 100, 50));
+                Complex limit = solver.findConvergence(solver.calcNIterations(new Complex(re, im), 100, 50));
 
                 if (limit == null) {
-                    kek.image.setRGB(reIter, kek.imageSize - 1 - imIter, Color.BLACK.getRGB());
+                    solver.image.setRGB(reIter, solver.imageSize - 1 - imIter, Color.BLACK.getRGB());
                 }
-                if (limit == kek.root1) {
-                    kek.image.setRGB(reIter, kek.imageSize - 1 - imIter, Color.RED.getRGB());
+                if (limit == solver.root1) {
+                    solver.image.setRGB(reIter, solver.imageSize - 1 - imIter, Color.RED.getRGB());
                 }
-                if (limit == kek.root2) {
-                    kek.image.setRGB(reIter, kek.imageSize - 1 - imIter, Color.GREEN.getRGB());
+                if (limit == solver.root2) {
+                    solver.image.setRGB(reIter, solver.imageSize - 1 - imIter, Color.GREEN.getRGB());
                 }
-                if (limit == kek.root3) {
-                    kek.image.setRGB(reIter, kek.imageSize - 1 - imIter, Color.BLUE.getRGB());
+                if (limit == solver.root3) {
+                    solver.image.setRGB(reIter, solver.imageSize - 1 - imIter, Color.BLUE.getRGB());
                 }
             }
         }
 
-        kek.drawRoots(Color.orange, 8);
+        solver.drawRoots(Color.orange, 8);
 
-        kek.drawPath(new Complex(1, 1), 100, Color.BLACK);
-        kek.drawPath(new Complex(0.1, 0.2), 100, Color.DARK_GRAY);
-        kek.drawPath(new Complex(-1, -1), 100, Color.WHITE);
-        kek.drawPath(new Complex(0.4, 0.6), 100, Color.YELLOW);
+        solver.drawPath(new Complex(1, 1), 100, Color.BLACK);
+        solver.drawPath(new Complex(0.1, 0.2), 100, Color.DARK_GRAY);
+        solver.drawPath(new Complex(-1, -1), 100, Color.WHITE);
+        solver.drawPath(new Complex(0.4, 0.6), 100, Color.YELLOW);
 
         File outputfile = new File("image.png");
-        ImageIO.write(kek.image, "png", outputfile);
+        ImageIO.write(solver.image, "png", outputfile);
     }
 }
